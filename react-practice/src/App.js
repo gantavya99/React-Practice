@@ -4,33 +4,34 @@ import axios from "axios";
 import { useState } from 'react';
 import { useEffect } from 'react';
 function App() {
-
-const [data,setData]=useState([]);
-const fetchData= ()=>{
-  axios.get("https://jsonplaceholder.typicode.com/posts/1").then((response)=>{
-  console.log(response.data)
-  setData(response.data)
-});
+const [name,setName]=useState([]);
+const [text,setText]=useState("");
+const fetchData=()=>{
+  axios.get("https://jsonplaceholder.typicode.com/users")
+  .then((response=>{
+    console.log(response.data);
+    setName(response.data);
+  }))
 }
 useEffect(() => {
- fetchData()
+ fetchData();
 }, [])
-
-
+const searchName=(text)=>{
+  let matches=[];
+   matches=name.includes((name)=>{
+    const regex=new RegExp(`${text}`,`gi`);
+    return name.username.match(regex);
+  })
+  console.log(matches);
+  setText(text);
+};
   return (
     <div className="App">
-      <input  className="input" type="text" placeholder='Enter your text here' />
       <button className="btn" onClick={fetchData}> Fetch Data</button>
-      <div className="data">
-      {data.title}
-      </div>
-      
-      {/* {data.map((value)=>{
-        return(
-          <p key={value.id}>{value.title}</p>
-        )
-      })} */}
-      
+      <input onChange={(e)=>searchName(e.target.value)} placeholder="Enter a name"/>
+      {name.map(value=>(
+        <p key={value.id}>{value.username}</p>
+      ))}
     </div>
   );
 }
