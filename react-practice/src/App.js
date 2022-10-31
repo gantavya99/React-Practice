@@ -20,7 +20,7 @@ const searchName=(text)=>{
   let matches=[];
    matches=name.includes((name)=>{
     const regex=new RegExp(`${text}`,`gi`);
-    return name.username.match(regex);
+    return name.match(regex);
   })
   console.log(matches);
   setText(text);
