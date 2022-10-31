@@ -23,13 +23,13 @@ const searchName=(text)=>{
     return name.match(regex);
   })
   console.log(matches);
-  setText(text);
+  setText(matches);
 };
   return (
     <div className="App">
       <button className="btn" onClick={fetchData}> Fetch Data</button>
       <input onChange={(e)=>searchName(e.target.value)} placeholder="Enter a name"/>
-      {name.map(value=>(
+      {name.filter((name)=>name.id>=0).map(value=>(
         <p key={value.id}>{value.username}</p>
       ))}
     </div>
