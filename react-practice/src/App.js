@@ -4,32 +4,32 @@ import axios from "axios";
 import { useState } from 'react';
 import { useEffect } from 'react';
 function App() {
-const [name,setName]=useState([]);
-const [text,setText]=useState("");
+const [json,setJson]=useState([]);
+const [name,setName]=useState("");
+//fetching data from API
 const fetchData=()=>{
   axios.get("https://jsonplaceholder.typicode.com/users")
   .then((response=>{
     console.log(response.data);
-    setName(response.data);
+     setJson(response.data);
   }))
 }
 useEffect(() => {
  fetchData();
 }, [])
-const searchName=(text)=>{
-  let matches=[];
-   matches=name.includes((name)=>{
-    const regex=new RegExp(`${text}`,`gi`);
-    return name.match(regex);
-  })
-  console.log(matches);
-  setText(matches);
-};
+
   return (
     <div className="App">
-      <button className="btn" onClick={fetchData}> Fetch Data</button>
-      <input onChange={(e)=>searchName(e.target.value)} placeholder="Enter a name"/>
-      {name.filter((name)=>name.id>=0).map(value=>(
+      <button className="btn" onClick={fetchData}>Fetch Data</button>
+      
+      <input  type="text" onChange={(event)=>setName(event.target.value)} placeholder="Enter a Name..."/>
+      
+      {json.filter((value)=>{
+        if(name=="")
+        return value;
+        else if(value.username.toLowerCase().includes(name.toLowerCase()))
+        return value;
+      }).map(value=>(
         <p key={value.id}>{value.username}</p>
       ))}
     </div>
