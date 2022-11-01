@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 function App() {
 const [json,setJson]=useState([]);
 const [name,setName]=useState("");
+const [display,setDisplay]=useState(false);
 //fetching data from API
 const fetchData=()=>{
   axios.get("https://jsonplaceholder.typicode.com/users")
@@ -18,20 +19,24 @@ useEffect(() => {
  fetchData();
 }, [])
 
+     const showOptions=()=>{
+      setDisplay(true);
+     }
+
   return (
     <div className="App">
-      <button className="btn" onClick={fetchData}>Fetch Data</button>
+      {/* <button className="btn" onClick={showOptions}>Fetch Data</button> */}
       
-      <input  type="text" onChange={(event)=>setName(event.target.value)} placeholder="Enter a Name..."/>
+      <input className="input1" type="text" onChange={(event)=>setName(event.target.value)} placeholder="Enter a Name..." onClick={showOptions}/>
       
-      {json.filter((value)=>{
+      { display?json.filter((value)=>{
         if(name=="")
         return value;
         else if(value.username.toLowerCase().includes(name.toLowerCase()))
         return value;
       }).map(value=>(
-        <p key={value.id}>{value.username}</p>
-      ))}
+        <p className="text" key={value.id}>{value.username}</p>
+      )):""}
     </div>
   );
 }

@@ -1,9 +1,9 @@
 .App {
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  text-align: center;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ flex-direction:column;
+ 
 }
 
 .btn{
@@ -25,6 +25,15 @@
   margin-top:10px;
   padding:2px;
 }
-.input{
+.input1{
   border:2px solid black;
+  height:100px;
+  font-size: 2rem;
+}
+.text{
+  font-size:2rem;
+  background:linear-gradient(90deg,rgb(179, 119, 195),rgb(36, 134, 161));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  
 }
